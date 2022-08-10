@@ -7,26 +7,26 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.glucosereadings.HomeFragment"
-        android:label="fragment_home"
+        android:name="com.example.glucosereadings.ui.fragments.HomeFragment"
+        android:label="Home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/manageCgmFragment"
-        android:name="com.example.glucosereadings.ManageCgmFragment"
-        android:label="fragment_manage_cgm"
-        tools:layout="@layout/fragment_manage_cgm" >
+        android:name="com.example.glucosereadings.ui.fragments.ManageCgmFragment"
+        android:label="Manage CGM"
+        tools:layout="@layout/fragment_manage_cgm">
         <action
             android:id="@+id/action_manageCgmFragment_to_addCgmFragment"
             app:destination="@id/addCgmFragment" />
     </fragment>
     <fragment
         android:id="@+id/cgmSimulatorFragment"
-        android:name="com.example.glucosereadings.CgmSimulatorFragment"
-        android:label="fragment_cgm_simulator"
+        android:name="com.example.glucosereadings.ui.fragments.CgmSimulatorFragment"
+        android:label="CGM Simulator"
         tools:layout="@layout/fragment_cgm_simulator" />
     <fragment
         android:id="@+id/addCgmFragment"
-        android:name="com.example.glucosereadings.AddCgmFragment"
-        android:label="fragment_add_cgm"
+        android:name="com.example.glucosereadings.ui.fragments.AddCgmFragment"
+        android:label="Add CGM"
         tools:layout="@layout/fragment_add_cgm" />
 </navigation>
