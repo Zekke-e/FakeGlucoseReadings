@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.glucosereadings.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/manageCgmFragment"
+        android:name="com.example.glucosereadings.ManageCgmFragment"
+        android:label="fragment_manage_cgm"
+        tools:layout="@layout/fragment_manage_cgm" >
+        <action
+            android:id="@+id/action_manageCgmFragment_to_addCgmFragment"
+            app:destination="@id/addCgmFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/cgmSimulatorFragment"
+        android:name="com.example.glucosereadings.CgmSimulatorFragment"
+        android:label="fragment_cgm_simulator"
+        tools:layout="@layout/fragment_cgm_simulator" />
+    <fragment
+        android:id="@+id/addCgmFragment"
+        android:name="com.example.glucosereadings.AddCgmFragment"
+        android:label="fragment_add_cgm"
+        tools:layout="@layout/fragment_add_cgm" />
+</navigation>
