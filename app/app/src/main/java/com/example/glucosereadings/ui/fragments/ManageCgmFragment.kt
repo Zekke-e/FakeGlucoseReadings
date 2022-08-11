@@ -52,7 +52,7 @@ class ManageCgmFragment : Fragment() {
         binding.btnManageCgmAddCgm.setImageResource(R.drawable.ic_remove)
         binding.btnManageCgmAddCgm.setOnClickListener {
             sensorManagementViewModel.deleteSensor()
-            showSensorDelete()
+            showSensorDeleteAlert()
         }
     }
 
@@ -64,7 +64,7 @@ class ManageCgmFragment : Fragment() {
         }
     }
 
-    private fun showSensorDelete() {
+    private fun showSensorDeleteAlert() {
         val dialogView = SensorAlertDialogBinding.inflate(LayoutInflater.from(context))
         val dialog = AlertDialog.Builder(context).create()
 

@@ -23,10 +23,6 @@ class AddCgmFragment : Fragment() {
         SensorManagementViewModelFactory(SensorRepository.getInstance())
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,12 +35,12 @@ class AddCgmFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.ivAddCgmCgmIcon.setOnLongClickListener {
             sensorManagementViewModel.addSensor()
-            showSensorAdded()
+            showSensorAddedAlert()
             true
         }
     }
 
-    private fun showSensorAdded() {
+    private fun showSensorAddedAlert() {
         val dialogView = SensorAlertDialogBinding.inflate(LayoutInflater.from(context))
         val dialog = AlertDialog.Builder(context).create()
 

@@ -6,6 +6,7 @@ import com.example.glucosereadings.repositories.SensorRepository
 class SensorManagementViewModel(private val repository: SensorRepository): ViewModel() {
 
     val sensorState = repository.sensorState
+    val egv = repository.egv
 
     fun addSensor() {
         repository.addSensor()
@@ -13,6 +14,10 @@ class SensorManagementViewModel(private val repository: SensorRepository): ViewM
 
     fun deleteSensor() {
         repository.deleteSensor()
+    }
+
+    fun setSensorLimit(limit: Int) {
+        repository.setSensorLimit(limit)
     }
 
 }
