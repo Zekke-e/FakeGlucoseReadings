@@ -2,6 +2,15 @@
 
 Fake glucose readings application is a very (very very) simple clone of the application we are currently working on.
 
+As of today, the application consists of the following views:
+- Home screen -> Shows the glucose values read by the sensor.
+
+- Sensor management screen -> Shows whether the sensor is connected to the app. In addition to this, it allows you to go to the add new sensor view or delete the currently connected sensor.
+
+- Add sensor screen -> Allows you to connect the sensor to the application. To do this, you need to perform the long press on the image.
+
+- Sensor simulator screen -> Allows you to simulate the values read by the sensor in the range 20-200. You need to be connected to the sensor to use the simulator.
+
 However, the project is not yet finished, it is missing a few things:
 
 - At startup the user is forced to view a blank white screen, which looks very bad. Therefore, implement ```Splash Screen```.
