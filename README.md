@@ -13,6 +13,8 @@ As of today, the application consists of the following views:
 
 However, the project is not yet finished, it is missing a few things:
 
+## What's left to do
+
 - At startup the user is forced to view a blank white screen, which looks very bad. Therefore, implement ```Splash Screen```.
 
 - If the sensor reads a glucose value less than, or equal to, 40 it means that the user is at risk. Therefore, in such a case, an ```Alert Dialog``` should be displayed on the home screen to inform the user of this risk.
