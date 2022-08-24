@@ -31,8 +31,6 @@ class SensorRepository private constructor() {
         }
     }
 
-
-
     fun addSensor() {
         if (cgm == null) {
             cgm = Cgm().also { sensor ->
@@ -51,7 +49,7 @@ class SensorRepository private constructor() {
         if (cgm != null) {
             egvDisposable?.dispose()
             cgm = null
-            _egv.value = null
+            _egv.value = EgvReturn()
             _sensorState.postValue(SensorStates.NOT_PRESENT)
         }
     }

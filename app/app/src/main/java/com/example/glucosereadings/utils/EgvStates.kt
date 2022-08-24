@@ -5,5 +5,5 @@ enum class EgvStates {
 
     NORMAL,
 
-    CRITIC
+    CRITICAL
 }

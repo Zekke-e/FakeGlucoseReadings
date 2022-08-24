@@ -55,7 +55,7 @@ class HomeFragment : Fragment() {
     private fun observeEgvValue() {
         sensorManagementViewModel.egv.observe(viewLifecycleOwner) { egv ->
             when (egv?.egvStates) {
-                EgvStates.CRITIC -> {
+                EgvStates.CRITICAL -> {
                     binding.tvHomeEgvValue.text = egv.egvValue.toString()
                     if (!sensorManagementViewModel.isAlertShowed.value!!)
                         showSensorAddedAlert()
