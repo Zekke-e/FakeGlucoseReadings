@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.glucosereadings.models.Cgm
 import com.example.glucosereadings.models.EgvReturn
 import com.example.glucosereadings.utils.SensorStates
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers.io
@@ -17,9 +18,6 @@ class SensorRepository private constructor() {
     private val _egv = MutableLiveData<EgvReturn?>()
     val egv: LiveData<EgvReturn?> get() = _egv
 
-    private val _sensorState = MutableLiveData(SensorStates.NOT_PRESENT)
-    val sensorState: LiveData<SensorStates> get() = _sensorState
-
     companion object {
         private var instance: SensorRepository? = null
 
@@ -31,7 +29,7 @@ class SensorRepository private constructor() {
         }
     }
 
-    fun addSensor() {
+    fun addSensor(): Observable<SensorStates> {
         if (cgm == null) {
             cgm = Cgm().also { sensor ->
                 egvDisposable = sensor.getEgvObservable()
@@ -41,16 +39,18 @@ class SensorRepository private constructor() {
                         _egv.value = EgvReturn(egvValue = it)
                     }
             }
-            _sensorState.postValue(SensorStates.PRESENT)
+        }
+        return Observable.create<SensorStates> {
+            it.onNext(SensorStates.PRESENT)
         }
     }
+
 
     fun deleteSensor() {
         if (cgm != null) {
             egvDisposable?.dispose()
             cgm = null
             _egv.value = EgvReturn()
-            _sensorState.postValue(SensorStates.NOT_PRESENT)
         }
     }
 
