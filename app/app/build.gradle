@@ -61,4 +61,7 @@ dependencies {
     testImplementation "io.mockk:mockk:1.12.5"
     testImplementation "io.mockk:mockk-agent-jvm:1.12.5"
     androidTestImplementation "io.mockk:mockk-android:1.12.5"
+    testImplementation "android.arch.core:core-testing:1.1.1"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation "io.mockk:mockk:1.12.5"
 }

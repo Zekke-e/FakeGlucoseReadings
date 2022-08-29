@@ -1,5 +1,6 @@
 package com.example.glucosereadings
 
+import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.glucosereadings.models.EgvReturn
@@ -11,9 +12,12 @@ import io.mockk.every
 import io.mockk.justRun
 import io.mockk.mockk
 import io.mockk.spyk
+import io.reactivex.android.plugins.RxAndroidPlugins
 import io.reactivex.internal.operators.observable.ObservableFromCallable
+import io.reactivex.schedulers.Schedulers
 import org.junit.Assert.assertEquals
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import java.lang.Thread.sleep
 
@@ -27,17 +31,25 @@ class ExampleUnitTest {
     private lateinit var mockRepository: SensorRepository
     private lateinit var viewModel: SensorManagementViewModel
 
+    @Rule
+    @JvmField
+    val rule = InstantTaskExecutorRule()
+
     @Before
     fun setUp() {
-        mockRepository = mockk<SensorRepository>()
-        viewModel = SensorManagementViewModel(mockRepository)
-        val x = createMockedSensorStateField()
-        x.postValue(EgvReturn(null,45))
+
+        RxAndroidPlugins.setInitMainThreadSchedulerHandler { Schedulers.trampoline() }
+        mockRepository = spyk()
+
         every { mockRepository.addSensor() } answers {
             ObservableFromCallable { SensorStates.PRESENT }
         }
-        every { mockRepository.egv.value?.egvValue }.returns (45)
 
+        every { mockRepository.egv.value }.answers {
+            EgvReturn(null, 45)
+        }
+
+        viewModel = SensorManagementViewModel(mockRepository)
     }
 
     @Test
@@ -53,20 +65,12 @@ class ExampleUnitTest {
         assertEquals(EgvReturn(egvStates = EgvStates.DEFAULT, egvValue = null), egvDefault)
     }
 
-
     @Test
     fun testAddSensor() {
         viewModel.addSensor()
         sleep(1000)
         assertEquals(SensorStates.PRESENT, viewModel.sensorState.value)
+        assertEquals(45, viewModel.egv.value?.egvValue)
     }
 
-
-    private fun createMockedSensorStateField(): MutableLiveData<EgvReturn?> {
-        val mockedSensorStateField =
-            mockRepository.javaClass.getDeclaredField("_egv").apply {
-                this.isAccessible = true
-            }
-        return mockedSensorStateField.get(mockRepository) as MutableLiveData<EgvReturn?>
-    }
 }

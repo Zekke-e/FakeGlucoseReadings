@@ -6,14 +6,18 @@ import androidx.lifecycle.ViewModel
 import com.example.glucosereadings.repositories.SensorRepository
 import com.example.glucosereadings.utils.SensorStates
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers.io
 
 
 class SensorManagementViewModel(private val repository: SensorRepository) : ViewModel() {
 
-    val egv = 20
+    val egv = repository.egv
 
-    val _sensorState = MutableLiveData(SensorStates.NOT_PRESENT)
+    private lateinit var disposable: Disposable
+
+
+    private val _sensorState = MutableLiveData(SensorStates.NOT_PRESENT)
     val sensorState: LiveData<SensorStates> get() = _sensorState
 
     private val _isAlertShowed = MutableLiveData(false)
@@ -24,7 +28,7 @@ class SensorManagementViewModel(private val repository: SensorRepository) : View
     }
 
     fun addSensor() {
-        repository.addSensor()
+        disposable = repository.addSensor()
             .subscribeOn(io())
             .observeOn(mainThread())
             .subscribe {
@@ -35,6 +39,7 @@ class SensorManagementViewModel(private val repository: SensorRepository) : View
     fun deleteSensor() {
         _sensorState.postValue(SensorStates.NOT_PRESENT)
         repository.deleteSensor()
+        disposable.dispose()
     }
 
     fun setSensorLimit(limit: Int) {
