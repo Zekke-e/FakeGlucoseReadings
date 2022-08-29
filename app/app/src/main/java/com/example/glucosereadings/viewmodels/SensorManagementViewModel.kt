@@ -8,11 +8,12 @@ import com.example.glucosereadings.utils.SensorStates
 import io.reactivex.android.schedulers.AndroidSchedulers.mainThread
 import io.reactivex.schedulers.Schedulers.io
 
+
 class SensorManagementViewModel(private val repository: SensorRepository) : ViewModel() {
 
-    val egv = repository.egv
+    val egv = 20
 
-    private val _sensorState = MutableLiveData(SensorStates.NOT_PRESENT)
+    val _sensorState = MutableLiveData(SensorStates.NOT_PRESENT)
     val sensorState: LiveData<SensorStates> get() = _sensorState
 
     private val _isAlertShowed = MutableLiveData(false)

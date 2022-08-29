@@ -21,7 +21,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding get() = _binding!!
 
-    private val sensorManagementViewModel by activityViewModels<SensorManagementViewModel> {
+    val sensorManagementViewModel by activityViewModels<SensorManagementViewModel> {
         SensorManagementViewModelFactory(SensorRepository.getInstance())
     }
 
